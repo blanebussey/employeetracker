@@ -1,5 +1,25 @@
 {
+  "name": "employeetracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "dependencies": {
-    "inquirer": "^8.2.0"
-  }
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blanebussey/employeetracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blanebussey/employeetracker/issues"
+  },
+  "homepage": "https://github.com/blanebussey/employeetracker#readme"
 }

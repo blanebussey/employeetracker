@@ -52,7 +52,7 @@ async function addDept() {
     const results = await db.query(`INSERT INTO department(department_name) VALUES ("${department_name}")`)
 }
 
-function addRole() {
+async function addRole() {
     const { title, salary, department_id } = await inquirer.prompt([
         {
             type: "input",
@@ -74,15 +74,46 @@ function addRole() {
 
 }
 
-function addEmployee() {
+async function addEmployee() {
+    const { first_name, last_name, role_id, manager_id } = await inquirer.prompt([
+        {
+            type: "input",
+            name: "first_name",
+            message: "What is the first name of the employee you would like to add?"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "What is the last name of the employee you would like to add?"
+        },
+        {
+            type: "input",
+            name: "role_id",
+            message: "What is the role the employee you would like to add?"
+        },
+        {
+            type: "input",
+            name: "manager_id",
+            message: "What is the manager id of the employee you would like to add?"
+        }
+    ])
+    const results = await db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`, [first_name, last_name, role_id, manager_id])
 
 }
-
-function updateEmployee() {
-    //instead of inserting, will be using update 
-    //update employee id 
-    //id of employee and id of role
-
+async function updateEmployee() {
+    const { employee, role } = await inquirer.prompt([
+        {
+            type: "input",
+            name: "employee_id", 
+            message: "What is the empoyee id of the employee that you would like to update?"
+        },
+      {
+          type: "input",
+          name: "role",
+          message: "What is the new role you would like to give them?"
+      }  
+    ])
+    const results = await db.query('UPDATE employee SET role_id=? WHERE id= ?', [role, employee_id])
 }
 
 function askTask() {
@@ -102,10 +133,10 @@ function askTask() {
             ]
         }
     ])
-        .then(async(answers) => {
+        .then(async (answers) => {
             const task = answers.task
-           await tasks[task]()
-           askTask()
+            await tasks[task]()
+            askTask()
         })
 }
 
